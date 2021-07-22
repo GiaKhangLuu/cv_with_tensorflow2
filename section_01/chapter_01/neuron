@@ -1,0 +1,44 @@
+import numpy as np
+
+
+class Neuron(object):
+    """A simple feed-forward artificial neuron.
+    Args:
+         num_inputs (int): The input vector size / number of input values.
+         activation_fn (callable): The activation function.
+    Attributes:
+        W (ndarray): The weight values for each input.
+        b (float): The bias value, added to the weighted sum.
+        activation_fn (callable): The activation function.
+    """
+
+    def __init__(self, num_inputs, activation_fn):
+        super(Neuron, self).__init__()
+        # Randomly initializing the weight vector and bias value:
+        self.W = np.random.rand(num_inputs)
+        self.b = np.random.rand(1)
+        self.activation_fn = activation_fn
+
+    def forward(self, x):
+        """Forward the input signal through the neuron"""
+        z = np.dot(x, self.W) + self.b
+        return self.activation_fn(z)
+
+
+# Fixing the random number generator's seed, for reproducible results:
+np.random.seed(42)
+
+# Random input column array of 3 values (shape = `(1, 3)`)
+x = np.random.rand(1, 3)
+
+# Define step function
+step_fn = lambda y: 0 if y <= 0 else 1
+
+# Instantiating a Perceptron
+perceptron = Neuron(num_inputs=x.size, activation_fn=step_fn)
+out = perceptron.forward(x)
+
+print("x=", x)
+print("weights=", perceptron.W)
+print("bias=", perceptron.b)
+print("y=", out)
