@@ -25,6 +25,11 @@ class Neuron(object):
         return self.activation_fn(z)
 
 
+# ========================================================
+# Main call
+# ========================================================
+
+
 # Fixing the random number generator's seed, for reproducible results:
 np.random.seed(42)
 
