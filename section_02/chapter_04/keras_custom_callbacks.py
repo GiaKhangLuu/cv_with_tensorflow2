@@ -61,7 +61,7 @@ class SimpleLogCallback(tf.keras.callbacks.Callback):
         print('Training: {}end{}'.format(log_begin_green, log_end_format))
 
     def on_epoch_end(self, epoch, logs={}):
-        if ((epoch - 1) % 2 == 0) or (epoch == self.num_epochs):
+        if ((epoch - 1) % self.log_frequency == 0) or (epoch == self.num_epochs):
             values = [logs[self.metrics_dict[metric_name]] for metric_name in self.metrics_dict]
             print(self.log_string_template.format(log_begin_bold, log_end_format, log_begin_blue,
                                                   epoch, self.num_epochs, *values))

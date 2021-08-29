@@ -51,7 +51,7 @@ def _prepare_data_fn(features, input_shape, augment=False, return_batch_as_tuple
         random_scale = tf.random.uniform([], minval=1., maxval=1.4, seed=seed)
         scaled_height = tf.cast(tf.cast(input_shape[0], tf.float32) * random_scale, tf.int32)
         scaled_width = tf.cast(tf.cast(input_shape[1], tf.float32) * random_scale, tf.int32)
-        scaled_shape = tf.stack(scaled_height, scaled_width)
+        scaled_shape = tf.stack([scaled_height, scaled_width])
         image = tf.image.resize(image, scaled_shape)
         image = tf.image.random_crop(image, input_shape, seed=seed)
     else:

@@ -20,7 +20,7 @@ def load_image(image_path, size):
     :return:           Image array, normalized between 0 and 1.
     """
 
-    images = img_to_array(load_image(image_path, size)) / 255.
+    images = img_to_array(load_img(image_path, size)) / 255.
     return images
 
 
@@ -36,7 +36,7 @@ def process_predictions(class_probabilities, class_readable_labels, k=5):
     topk_labels, topk_probabilities = [], []
     for i in range(len(class_probabilities)):
         # Getting indexes of k top predictions, dont need to order
-        topk_predictions = sorted(np.argpartition(class_probabilities, -k)[-k:])
+        topk_predictions = sorted(np.argpartition(class_probabilities[i], -k)[-k:])
 
         # Getting the corresponding labels & probabilities
         topk_labels.append([class_readable_labels[prediction] for prediction in topk_predictions])
@@ -55,7 +55,7 @@ def display_predictions(images, topk_labels, topk_probabilities):
 
     num_imgs = len(images)
     num_imgs_sqrt = np.sqrt(num_imgs)
-    num_rows, num_cols = int(np.ceil(num_imgs_sqrt))
+    num_rows = num_cols = int(np.ceil(num_imgs_sqrt))
 
     fig = plt.figure(figsize=(13, 10), constrained_layout=True)  # `constrained_layout` automatically adjust subplots
     grid_spec = gridspec.GridSpec(num_rows, num_cols)
